@@ -1,4 +1,6 @@
-# A collection of Data Visualization patterns
+# A collection of Data Visualization design patterns
+
+English | [Japanese](https://github.com/ynunokawa/data-viz/blob/gh-pages/README_ja.md)
 
 A collection of simple examples to visualize data with charts, maps and events.
 Charts are built with D3.js and maps are Leaflet or ArcGIS API for JavaScript.
