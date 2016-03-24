@@ -30,7 +30,7 @@ WHY do I use __[ArcGIS API for JavaScript](https://developers.arcgis.com/javascr
 
 ## Chart
 
-WHY do we use __[D3.js](https://d3js.org/)__?
+WHY do I use __[D3.js](https://d3js.org/)__?
 
 * Lovin' it!
 
