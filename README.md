@@ -1,4 +1,4 @@
-# A collection of Data Visualization design patterns
+# A collection of Data Visualization patterns
 
 English | [Japanese](https://github.com/ynunokawa/data-viz/blob/gh-pages/README_ja.md)
 
