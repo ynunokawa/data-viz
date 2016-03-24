@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Esri Japan DataViz Lab</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.ico">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- ArcGIS API CSS -->
+    <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/esri.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <!-- Bootstrap Map CSS -->
+    <link rel="stylesheet" href="css/bootstrapmap.min.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/map-ui.css">
+    <link rel="stylesheet" href="css/chart-ui.css">
+    <link rel="stylesheet" href="css/legend-ui.css">
+    
+    <style>
+        @import url("../../assets/css/font-awesome.min.css");
+    </style>
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        var dojoConfig = {
+            packages: [{
+                name: 'config',
+                location: package_path + '/config'
+            }, {
+                name: 'app',
+                location: package_path + '/js'
+            }, {
+                name: 'dojo-bootstrap',
+                location: '//rawgit.com/xsokev/Dojo-Bootstrap/master'
+            }, {
+                name: 'bootstrap-map-js',
+                location: '//esri.github.io/bootstrap-map-js/src/'
+            }]
+        };
+    </script>
+
+    <!-- jQuery -->
+    <script src="lib/jquery.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- D3 -->
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- cedar -->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script type="text/javascript" src="http://vega.github.io/vega/vega.min.js"></script>
+    <script type="text/javascript" src="//esri.github.io/cedar/js/cedar.js"></script>-->
+
+    <!-- ArcGIS API JS --> 
+    <script src="//js.arcgis.com/3.15/"></script>
+
+    <!-- App -->
+    <script src="js/main.js"></script>
+        
+  </head>
+
+  <body>
+    <!-- loading -->
+    <!--<div id="app-start-loading">
+        <div id="loader">
+            <img src="img/start-loading.gif" width="64" height="64" alt="Now Loading..." />
+            <p>震源地データを取得中...</p>
+        </div>
+    </div>-->
+    <!-- top nav -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><span id="viz-title"></span><i class="fa fa-github"></i></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <!--<li>
+                <a id="now" href="#"><b></b></a>
+            </li>-->
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">凡例<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                <li><div id="mapLegendView"></div></li>
+                </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- container -->
+    <div class="container-map">
+      <div class="row row-map">
+        <!-- the map -->
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-map">
+          <div id="mapView"><div id="dateView"><span id="now"></span></div></div>
+        </div>
+        <!-- responsive sidebar -->
+        <!--<div class="col-xs-12 col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10">
+          <div id="sidebar">
+             <h4>Legend</h4>
+             <div id="mapLegend"></div>
+          </div>
+        </div>-->
+      </div>
+      <div class="row row-chart">
+          <div class="col-xs-12 col-sm-12 col-lg-12 col-chart">
+              <div id="chartView"></div>
+          </div>
+      </div>
+    </div>
+    <!-- about modal -->
+    <div class="modal fade about-modal" style="display: none;" aria-hidden="true">
+      <div id="aboutModal"></div>
+    </div>
+
+  </body>
+</html>

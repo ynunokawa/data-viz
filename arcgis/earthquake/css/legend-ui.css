@@ -1,0 +1,12 @@
+/* Legend */
+
+#mapLegendView {
+  font-size: 9pt;
+  width: 200px;
+  margin: 7px 15px 0px 15px;
+}
+
+.dropdown-menu {
+    background: #222;
+    color: #bbb;
+}

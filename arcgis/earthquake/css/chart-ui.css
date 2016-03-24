@@ -1,0 +1,117 @@
+/* Chart */
+
+#chartView {
+    margin: 0 auto;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #9d9d9d;
+  shape-rendering: crispEdges;
+}
+
+.tooltip {
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  pointer-events: none;
+  background: #444;
+  color: rgb(255, 85, 0);
+  padding: 10px 15px 10px 15px;
+  font-weight: bold;
+  font-size: 0.8em;
+  font-family: "Meiryo";
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+circle.dot {
+    cursor: pointer;
+    fill: #000;
+    animation-duration: 4s;
+    animation-name: changeColor2;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-name: changeColor2;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-fill-mode: forwards;
+}
+
+circle.dot:hover {
+    transition: fill, fill-opacity, stroke, stroke-opacity, stroke-width 0.5s;
+    stroke: #ff1493;
+    stroke-width: 4;
+    stroke-opacity: 0.7;
+    fill: #ff1493;
+    fill-opacity: 0.5;
+}
+
+circle.active-dot {
+    cursor: pointer;
+    fill: rgb(255, 85, 0);
+    animation-duration: 4s;
+    animation-name: changeColor1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-name: changeColor1;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-fill-mode: forwards;
+}
+
+circle.select-dot {
+    cursor: pointer;
+    stroke: #ff1493;
+    stroke-width: 4;
+    stroke-opacity: 0.7;
+    fill: #ff1493;
+    fill-opacity: 0.5;
+}
+
+circle.active-dot:hover {
+    transition: fill, fill-opacity, stroke, stroke-opacity, stroke-width 0.5s;
+    stroke: #ff1493;
+    stroke-width: 4;
+    stroke-opacity: 0.7;
+    fill: #ff1493;
+    fill-opacity: 0.5;
+}
+
+/* Animations */
+
+@keyframes changeColor1 {
+  0% {
+      fill: #000;
+  }
+  100% {
+      fill: rgb(255, 85, 0);
+  }
+}
+
+@-webkit-keyframes changeColor1 {
+  0% {
+      fill: #000;
+  }
+  100% {
+      fill: rgb(255, 85, 0);
+  }
+}
+
+@keyframes changeColor2 {
+  0% {
+      fill: rgb(255, 85, 0);
+  }
+  100% {
+      fill: #000;
+  }
+}
+
+@-webkit-keyframes changeColor2 {
+  0% {
+      fill: rgb(255, 85, 0);
+  }
+  100% {
+      fill: #000;
+  }
+}

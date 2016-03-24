@@ -1,0 +1,271 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+    font-family: "Meiryo";
+    background: #212124;
+}
+
+#app-start-loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #fff;
+  z-index: 999;
+  opacity: 0.9;
+  transition: opacity 2s;
+}
+#loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  text-align: center;
+  color: #333;
+  z-index: 2;
+  font-weight: bold;
+}
+
+/* Layout */
+.navbar-inverse {
+  border: 0 !important;
+  height: 51px;
+  background-color: #666;
+}
+
+.container-fluid {
+  padding: 0;
+  /*margin-left: 25px;*/
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-brand > i {
+    margin-left: 10px;
+    transition: all .3s;
+}
+
+.navbar-brand:hover > i {
+    color: #00ffff;
+    transform: scale(1.2);
+}
+
+.navbar-header {
+  width: 33.333%;
+  background: #444;
+  height: 51px;
+}
+
+.navbar-header > a {
+  margin-left: 5px !important;
+}
+
+.navbar-right {
+  padding-right: 25px;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+  background-color: #555;
+}
+
+.container-map {
+  height: 100%;
+  overflow: hidden;
+}
+
+.row-map {
+  height: 60%;
+}
+
+.row-chart {
+    height: 40%;
+}
+
+.col-map {
+  height: 100%;
+  overflow: hidden;
+}
+
+.col-chart {
+    height: 100%;
+    overflow: hidden;
+}
+
+.top-icon {
+  height: 24px;
+  width: auto;
+}
+
+/* Rewrite Bootstrap Map JS */
+.esriPopupWrapper {
+  font-family: "Meiryo";
+}
+
+.esriPopup .titlePane, .esriPopup.dark .titlePane, .esriPopup.light .titlePane {
+  background-color: #555;
+}
+
+.esriPopup .titleButton {
+  margin-top: 5px;
+}
+
+.esriPopup .titleButton.close {
+  margin-right: 5px;
+}
+
+/* Rewrite ArcGIS API for JavaScript */
+.esriStopsGetDirectionsContainer {
+  display: none;
+}
+
+.esriLinkButton .esriStopsOptionsButton {
+  display: none;
+}
+
+.esriAttribution {
+  font-size: 6pt;
+  background: rgba(0,0,0,0);
+  color: #fff;
+}
+
+/* Dojo Bootstrap JS Smaple CSS */
+/* top nav */
+body {
+  padding-top: 51px;
+}
+
+.navbar-toggle-icon {
+  padding: 6px 10px;
+}
+
+.navbar-toggle-left {
+  float: left;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.navbar-toggle .glyphicon {
+  color: #fff;
+  font-size: 14px;
+}
+
+/* no margins or padding around map */
+.container-map, .container-map .col-map {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.container-map .row-map {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* map widgets */
+.HomeButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 30;
+  margin: 2px 0; /*needed to line up w/ geocoder */
+}
+
+.locate-button {
+  position: absolute;
+  top: 15px;
+  left: 55px;
+  z-index: 30;
+  margin: 2px 0; /*needed to line up w/ geocoder */
+}
+
+.geocoder {
+  display: block;
+  position: absolute;
+  z-index: 30;
+  top: 15px;
+  right: 15px;
+}
+
+.esriSimpleSliderBR {
+  right: 15px;
+}
+
+/* override defaults set in bootstrapmap.css */
+.simpleGeocoder .esriGeocoderContainer {
+  width: 210px;
+}
+.esriSimpleSlider {
+  top: auto;
+  left: auto;
+}
+
+/* responsive styles for mobile */
+@media (max-width:767px) {
+
+  /* off canvas sidebar */
+  #sidebar {
+    position: fixed;
+    top: 51px;
+    left: -260px;
+    z-index: 100;
+    font-size: small;
+    width: 260px;
+    /*
+      default to iPhone 5 portrait height, but
+      this will be overwritten by app
+    */
+    height: 320px;
+    overflow: auto;
+
+    /* mimic col styles */
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #fff;
+
+    -webkit-transition: left .5s ease-in-out;
+    -moz-transition: left .5s ease-in-out;
+    -o-transition: left .5s ease-in-out;
+    transition: left .5s ease-in-out;
+  }
+
+  /* overlay sidebar */
+  .sidebar-open #sidebar {
+    left: 0;
+  }
+
+  /* don't wrap title */
+  a.navbar-brand {
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+  /* hide scalebar */
+  .esriScalebar {
+    display: none;
+  }
+}
+
+@media (max-width:600px) {
+  /* smaller title */
+  a.navbar-brand {
+    padding-left: 5px;
+    padding-right: 5px;
+    max-width: 200px;
+  }
+
+  /* smaller attribution */
+  .esriSimpleSliderBR {
+    bottom: 30px;
+  }
+}
