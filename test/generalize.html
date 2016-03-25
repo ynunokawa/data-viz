@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Esri Japan Data Visualization Lab</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.ico">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <!-- ArcGIS API CSS -->
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+    
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      img.layerTile {
+        animation-duration: 1s;
+        animation-name: fadein;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-name: fadein;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-fill-mode: forwards;
+      }
+      #rental_price_6551_layer > path {
+        animation-duration: 1s;
+        animation-name: volume-animation;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-name: volume-animation;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-fill-mode: forwards;
+        transition: all 1s;
+      }
+      
+      @keyframes fadein {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+      }
+
+      @keyframes volume-animation {
+        0% {
+            stroke-opacity: 1;
+            stroke-width: 24;
+            fill-opacity: 0;
+        }
+        100% {
+            stroke-opacity: 0;
+            stroke-width: 1;
+        }
+      }
+
+      @-webkit-keyframes volume-animation {
+        0% {
+            stroke-opacity: 1;
+            stroke-width: 24;
+        }
+        100% {
+            stroke-opacity: 0;
+            stroke-width: 1;
+            fill-opacity: 1;
+        }
+      }
+    </style>
+    
+    <!-- ArcGIS API JS --> 
+    <script src="https://js.arcgis.com/3.16/"></script>
+    
+    <!-- App -->
+    <script>
+      var map;
+      require([
+        // Map
+        "esri/arcgis/utils",
+    
+        // Legend
+        "esri/dijit/Legend",
+        
+        "esri/symbols/SimpleFillSymbol",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/renderers/ClassBreaksRenderer",
+        "esri/Color", "dojo/dom-style", 
+        "dojo/dom", "dojo/on",
+        "dojo/parser",
+        "dijit/form/TextBox", "dijit/form/Button",
+        "dojo/domReady!"
+      ], function(
+        arcgisUtils,
+        
+        Legend,
+        
+        SimpleFillSymbol, 
+        SimpleLineSymbol,
+        ClassBreaksRenderer,
+        Color, domStyle,
+        dom, on,
+        parser
+      ) {
+        parser.parse();
+          
+        var map, layer, legend;
+        var myincome = dom.byId("form-income").value;
+        
+        on(dom.byId("btn"), "click", function() {
+          myincome = dom.byId("form-income").value;
+          createRenderer(myincome);
+        });
+        
+        function initMap() {
+            var deferred = arcgisUtils.createMap("829013354a3c4500a5f7f72bf73df579", "mapView", {
+                mapOptions: {
+                    sliderPosition: "bottom-right"
+                }
+            }).then(function(response) {
+                map = response.map;
+                //map.disableMapNavigation(); // 地図操作無効化
+                console.log(map);
+                
+                //dom.byId("viz-title").innerHTML = response.itemInfo.item.title;
+                layer = map.getLayer("rental_price_6551");
+
+                layer.setAutoGeneralize(false);
+                layer.setMaxAllowableOffset(map.__tileInfo.lods[0].resolution);
+                console.log(map.__tileInfo.lods);
+                layer.refresh();
+                
+                legend = new Legend({
+                    map: map,
+                    layerInfos: [{
+                        title: "年収に対する家賃割合(%)",
+                        layer: layer,
+                        defaultSymbol: false
+                    }]
+                }, "mapLegendView");
+                legend.startup();
+                
+                createRenderer(myincome);
+            });
+        }
+        
+        function createRenderer(income) {
+          var symbol = new SimpleFillSymbol();
+          symbol.setColor(new Color([150, 150, 150, 0.5]));
+          
+          var renderer = new ClassBreaksRenderer(symbol, function(f) {
+            var rate = ((f.attributes["家賃_csv_AVG"] * 12) / (income * 10000)) * 100;
+            //console.log(rate);
+            return rate;
+          });
+          renderer.addBreak({
+              minValue: 0,
+              maxValue: 15,
+              symbol: new SimpleFillSymbol().setColor(new Color([84, 190, 190, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID).setColor(new Color([84, 190, 190, 0]))),
+              label: "0-15 (余裕)"
+          });
+          renderer.addBreak({
+              minValue: 15,
+              maxValue: 20,
+              symbol: new SimpleFillSymbol().setColor(new Color([152, 209, 209, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID).setColor(new Color([152, 209, 209, 0]))),
+              label: "15-20 (適正)"
+          });
+          renderer.addBreak({
+              minValue: 20,
+              maxValue: 25,
+              symbol: new SimpleFillSymbol().setColor(new Color([222, 218, 210, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID).setColor(new Color([222, 218, 210, 0]))),
+              label: "20-25 (まあまあ適正)"
+          });
+          renderer.addBreak({
+              minValue: 25,
+              maxValue: 30,
+              symbol: new SimpleFillSymbol().setColor(new Color([223, 151, 158, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID).setColor(new Color([223, 151, 158, 0]))),
+              label: "25-30 (家計圧迫)"
+          });
+          renderer.addBreak({
+              minValue: 30,
+              maxValue: 100,
+              symbol: new SimpleFillSymbol().setColor(new Color([200, 0, 100, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID).setColor(new Color([200, 0, 100, 0]))),
+              label: "30+ (家計炎上)"
+          });
+          /*renderer.addBreak(0, 15, new SimpleFillSymbol().setColor(new Color([84, 190, 190, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL)));
+          renderer.addBreak(15, 20, new SimpleFillSymbol().setColor(new Color([152, 209, 209, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL)));
+          renderer.addBreak(20, 25, new SimpleFillSymbol().setColor(new Color([222, 218, 210, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL)));
+          renderer.addBreak(25, 30, new SimpleFillSymbol().setColor(new Color([223, 151, 158, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL)));
+          renderer.addBreak(30, 100, new SimpleFillSymbol().setColor(new Color([200, 0, 100, 0.75])).setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL)));*/
+          
+          layer.setRenderer(renderer);
+          layer.redraw();
+          legend.refresh();
+        }
+        
+        initMap();
+      });
+    </script>
+  </head>
+  
+  <body class="calcite">
+    <div id="mapView"></div>
+    <div id="mapLegendView"></div>
+    <label>あなたの年収は</label> <input id="form-income" value="500" data-dojo-type="dijit/form/TextBox" />
+    <button id="btn" type="button" data-dojo-type="dijit/form/Button">GO</button>
+  </body>
+
+</html>
