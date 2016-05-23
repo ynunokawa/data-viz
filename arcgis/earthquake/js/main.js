@@ -48,7 +48,8 @@ require([
 
     var map, eq_depth, eq_magnitude, playInterval = 6200;
     var currentTime = new Date();
-    var today = new Date((currentTime.getMonth() + 1) + "/" + currentTime.getDate() + "/" + currentTime.getFullYear() + " UTC");
+    //var today = new Date((currentTime.getMonth() + 1) + "/" + currentTime.getDate() + "/" + currentTime.getFullYear() + " UTC");
+    var today = new Date("4/4/2016 UTC"); // USGS Live Feed のデータが現在この日までで終わってる
     var y = currentTime.getFullYear();
     var m = currentTime.getMonth() - 1;
     var d = currentTime.getDate();
