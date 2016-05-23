@@ -53,6 +53,7 @@ require([
     var m = currentTime.getMonth() - 1;
     var d = currentTime.getDate();
     var now = { start: new Date(m + "/1/" + y + " UTC"), end: new Date(m + "/2/" + y + " UTC") };
+    var threeMonthsExtent = { start: new Date(m + "/1/" + y + " UTC"), end: new Date((m+3) + "/1/" + y + " UTC") };
     var chart, eq_allData = [], nextStartId = 0;
     var eq_queryTask = new QueryTask(appConfig.chart.dataUrl);
     console.log(today, now.end);
@@ -110,6 +111,10 @@ require([
         query.outFields = ["OBJECTID", "MAGNITUDE", "DEPTH", "UTC_DATETIME"];
         query.returnGeometry = false;
         //query.where = "1=1";
+        var timeExtent = new TimeExtent();
+        timeExtent.startTime = threeMonthsExtent.start;
+        timeExtent.endTime = threeMonthsExtent.end;
+        query.timeExtent = timeExtent;
         if(startId !== undefined) {
             query.where = "MAGNITUDE >= 4 AND OBJECTID > " + startId;
         }
